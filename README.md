@@ -16,11 +16,9 @@ Footlocker provides a set of tools, including online leaderboards, to elevate yo
 
 # MIDI Piano
 
-This demo showcases the utilization of [InputEventMIDI](https://docs.godotengine.org/en/latest/classes/class_inputeventmidi.html) to create a captivating piano experience controlled by a MIDI device. Noteo has been tested and proven compatible with a Yamaha MX88.
+This demo showcases the utilization of [InputEventMIDI](https://docs.godotengine.org/en/latest/classes/class_inputeventmidi.html) to create a captivating piano experience controlled by a MIDI device. It has been tested and proven compatible with a Yamaha MX88.
 
-In addition to MIDI control, Noteo introduces an innovative multiplayer simulation using the Footlocker Web Console. Players can engage with each other in a collaborative musical experience.
-
-## Project Details
+### Piano Project Details
 
 - Language: GDScript
 - Renderer: GLES 2
