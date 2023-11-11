@@ -1,0 +1,116 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsq3volt0et4w"]
+
+[ext_resource type="Script" path="res://staff_view.gd" id="1_q3pvr"]
+[ext_resource type="Texture2D" uid="uid://dhk1dm7heg0qa" path="res://assets/staff.png" id="1_xmfg3"]
+[ext_resource type="Texture2D" uid="uid://dreo83urgumpb" path="res://assets/BassClef.png" id="2_2x0hk"]
+[ext_resource type="Texture2D" uid="uid://b21tfwvwhy6wo" path="res://assets/TrebleClef.png" id="3_ja1e6"]
+[ext_resource type="Texture2D" uid="uid://b83a7mfl1eilj" path="res://assets/notes/quarter.png" id="4_7fyli"]
+[ext_resource type="Texture2D" uid="uid://5qglcqfwo18x" path="res://assets/flat.png" id="4_kb3ug"]
+[ext_resource type="Texture2D" uid="uid://dmo25fo7mxxsp" path="res://assets/sharp.png" id="5_ibw8e"]
+
+[node name="staff" type="Sprite2D" node_paths=PackedStringArray("clef")]
+position = Vector2(575, 260)
+scale = Vector2(2.19941, 0.302402)
+texture = ExtResource("1_xmfg3")
+script = ExtResource("1_q3pvr")
+clef = NodePath("clef")
+treble = ExtResource("3_ja1e6")
+bass = ExtResource("2_2x0hk")
+
+[node name="clef" type="Sprite2D" parent="."]
+position = Vector2(-142.5, -31)
+scale = Vector2(0.0744663, 0.332716)
+texture = ExtResource("3_ja1e6")
+
+[node name="flatContainer" type="Node2D" parent="."]
+
+[node name="Bb" type="Sprite2D" parent="flatContainer"]
+visible = false
+position = Vector2(-110, -72.752)
+scale = Vector2(0.008, 0.045)
+texture = ExtResource("4_kb3ug")
+
+[node name="Eb" type="Sprite2D" parent="flatContainer"]
+visible = false
+position = Vector2(-100, -214.945)
+scale = Vector2(0.008, 0.045)
+texture = ExtResource("4_kb3ug")
+
+[node name="Ab" type="Sprite2D" parent="flatContainer"]
+visible = false
+position = Vector2(-90, -9.922)
+scale = Vector2(0.008, 0.045)
+texture = ExtResource("4_kb3ug")
+
+[node name="Db" type="Sprite2D" parent="flatContainer"]
+visible = false
+position = Vector2(-80, -168.65)
+scale = Vector2(0.008, 0.045)
+texture = ExtResource("4_kb3ug")
+
+[node name="Gb" type="Sprite2D" parent="flatContainer"]
+visible = false
+position = Vector2(-70, 33.454)
+scale = Vector2(0.008, 0.045)
+texture = ExtResource("4_kb3ug")
+
+[node name="Cb" type="Sprite2D" parent="flatContainer"]
+visible = false
+position = Vector2(-60, -116.752)
+scale = Vector2(0.008, 0.045)
+texture = ExtResource("4_kb3ug")
+
+[node name="Fb" type="Sprite2D" parent="flatContainer"]
+visible = false
+position = Vector2(-50, 83.248)
+scale = Vector2(0.008, 0.045)
+texture = ExtResource("4_kb3ug")
+
+[node name="sharpContainer" type="Node2D" parent="."]
+
+[node name="F#" type="Sprite2D" parent="sharpContainer"]
+visible = false
+position = Vector2(-110, -244.707)
+scale = Vector2(0.0741401, 0.42006)
+texture = ExtResource("5_ibw8e")
+
+[node name="C#" type="Sprite2D" parent="sharpContainer"]
+visible = false
+position = Vector2(-95, -86.707)
+scale = Vector2(0.0741401, 0.42006)
+texture = ExtResource("5_ibw8e")
+
+[node name="G#" type="Sprite2D" parent="sharpContainer"]
+visible = false
+position = Vector2(-80, -305.707)
+scale = Vector2(0.0741401, 0.42006)
+texture = ExtResource("5_ibw8e")
+
+[node name="D#" type="Sprite2D" parent="sharpContainer"]
+visible = false
+position = Vector2(-65, -145.707)
+scale = Vector2(0.074, 0.42)
+texture = ExtResource("5_ibw8e")
+
+[node name="A#" type="Sprite2D" parent="sharpContainer"]
+visible = false
+position = Vector2(-50, 8.293)
+scale = Vector2(0.074, 0.42)
+texture = ExtResource("5_ibw8e")
+
+[node name="E#" type="Sprite2D" parent="sharpContainer"]
+visible = false
+position = Vector2(-35, -206.707)
+scale = Vector2(0.074, 0.42)
+texture = ExtResource("5_ibw8e")
+
+[node name="B#" type="Sprite2D" parent="sharpContainer"]
+visible = false
+position = Vector2(-20, -42.707)
+scale = Vector2(0.074, 0.42)
+texture = ExtResource("5_ibw8e")
+
+[node name="note" type="Sprite2D" parent="."]
+position = Vector2(52.741, 130)
+scale = Vector2(0.0310998, 0.174596)
+texture = ExtResource("4_7fyli")
