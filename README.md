@@ -1,21 +1,31 @@
-# MIDI Piano
+# Noteo
 
-This demo shows how to use
-[InputEventMIDI](https://docs.godotengine.org/en/latest/classes/class_inputeventmidi.html)
-by creating a piano that can be controlled by a MIDI device.
-This is known to work with a Yamaha MX88.
+Noteo is an interactive game that leverages the power of the MIDI piano, allowing players to engage in a musical adventure. The game features integration with the MIDI piano, and for multiplayer simulation, it utilizes the Footlocker Web Console.
 
-The piano can also be controlled by clicking on the keys, or by
-manually calling the activate and deactivate methods on each key.
+## MIDI Piano
 
-Note that MIDI output is not yet supported in Godot, only input works.
+This demo showcases the utilization of [InputEventMIDI](https://docs.godotengine.org/en/latest/classes/class_inputeventmidi.html) to create a captivating piano experience controlled by a MIDI device. It has been tested and proven compatible with a Yamaha MX88.
 
-Language: GDScript
+### Piano Project Details
 
-Renderer: GLES 2
+- Language: GDScript
+- Renderer: GLES 2
+- Multiplayer Simulation: Footlocker Web Console
 
-Check out this demo on the asset library: https://godotengine.org/asset-library/asset/1292
+Check out this captivating musical experience in the [Godot Asset Library](https://godotengine.org/asset-library/asset/1292).
 
-## Screenshots
+### Piano Screenshots
 
 ![Screenshot](screenshots/piano-pressed.png)
+
+## Footlocker Integration for Multiplayer Simulation
+
+Footlocker provides a set of tools, including online leaderboards, to elevate your game's engagement and competitiveness. I'm adding a script that will compare users scores to simulate multipayer
+
+### Features
+
+- **Leaderboards:** Footlocker allows you to seamlessly implement online leaderboards, enabling players to compete and showcase their skills globally.
+
+- **Player Authentication:** Easily authenticate players and handle returning players with the provided GDScript examples.
+
+- **Score Management:** Retrieve and upload leaderboard data effortlessly, empowering you to create a dynamic and competitive gaming environment.
