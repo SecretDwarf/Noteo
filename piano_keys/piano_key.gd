@@ -6,7 +6,6 @@ var pitch_scale: float
 @onready var key: ColorRect = $Key
 @onready var start_color: Color = key.color
 @onready var color_timer: Timer = $ColorTimer
-@onready var noteLabel: Label = $noteLabel
 
 
 # Function to get the note name from a pitch index
@@ -25,16 +24,16 @@ func get_white_key_note_name_from_pitch(pitch_index):
 		return note_name
 	else:
 		# it's a black key
-		return null
+		pass
 
 func setup(pitch_index: int):
 	name = "PianoKey" + str(pitch_index)
 	var exponent := (pitch_index - 69.0) / 12.0
 	pitch_scale = pow(2, exponent)
-	print(pitch_index)
 
 	var note_name = get_white_key_note_name_from_pitch(pitch_index)
 	if note_name != null:
+		var noteLabel: Label = $noteLabel
 		noteLabel.text = note_name
 
 func activate():

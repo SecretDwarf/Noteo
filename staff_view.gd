@@ -3,97 +3,195 @@ extends Node2D
 @export var treble: Texture2D
 @export var bass: Texture2D
 
-@export var flatContainer: Node2D
-@export var sharpContainer: Node2D
+@export var flatContainerBass: Node2D
+@export var sharpContainerBass: Node2D
 
-@export var note: Sprite2D
+@export var flatContainerTreble: Node2D
+@export var sharpContainerTreble: Node2D
+
+@export var noteSprite: Sprite2D
 
 @export var sixteenth: Texture2D
 @export var eighth: Texture2D
 @export var quarter: Texture2D
 @export var half: Texture2D
 
+var randAccidental: int
+var randKey: int
+
+# define note values
+# the lower octave is stored as lowercase
+# the upper octave is stored as uppercase
+const trebleNotes  = ['c', 'd', 'e', 'f', 'g', 'A', 'B', 'C', 'D', 'E', 'F', 'G'] 
+const bassNotes = ['f', 'g', 'a', 'b', 'c', 'd', 'e', 'F', 'G', 'A', 'B', 'C'] 
+
+const trebleNoteToPositionDict = {
+  'a': 260, 'ab': 260, 'a#': 260, 'b': 220, 'bb': 220, 'b#': 220, 'c': 180, 'cb': 180, 'c#': 180, 'd': 140, 'db': 140, 'd#': 140, 'e': 100, 'eb': 100, 'e#': 100, 'f': 60, 'fb': 60, 'f#': 60, 'g': 20, 'gb': 20, 'g#': 20,
+  'A': -20, 'Ab': -20, 'A#': -20, 'B': -60, 'Bb': -60, 'B#': -60, 'C': -100, 'Cb': -100, 'C#': -100, 'D': -140, 'Db': -140, 'D#': -140, 'E': -180, 'Eb': -180, 'E#': -180, 'F': -220, 'Fb': -220, 'F#': -220, 'G': -260, 'Gb': -260, 'G#': -260, 'AA': -300, 'AAb': -300, 'AA#': -300, 'BB': -340, 'BBb': -340, 'BB#': -340, 'CC': -420, 'CCb': -420, 'CC#': -420 
+}
+
+const bassNoteToPositionDict = {
+  'c': 260, 'cb': 260, 'c#': 260, 'd': 220, 'db': 220, 'd#': 220, 'e': 180, 'eb': 180, 'e#': 180, 'f': 140, 'fb': 140, 'f#': 140, 'g': 100, 'gb': 100, 'g#': 100, 'a': 60, 'ab': 60, 'a#': 60, 'b': 20, 'bb': 20, 'b#': 20,
+  'C': -20, 'Cb': -20, 'C#': -20, 'D': -60, 'Db': -60, 'D#': -60, 'E': -100, 'Eb': -100, 'E#': -100, 'F': -140, 'Fb': -140, 'F#': -140, 'G': -180, 'Gb': -180, 'G#': -180, 'A': -220, 'Ab': -220, 'A#': -220, 'B': -260, 'Bb': -260, 'B#': -260, 'CC': -300, 'CCb': -300, 'CC#': -300, 'DD': -340, 'DDb': -340, 'DD#': -340, 'EE': -420, 'EEb': -420, 'EE#': -420 
+};
+
+# setters
+
+func setClefTexture(newClef: Texture2D):
+	clef.texture = newClef
+
+func setRandKey(newRandKey: int):
+	randKey = newRandKey
+
+func setRandAccidental(newRandAccidental: int):
+	randAccidental = newRandAccidental
+
+func _ready():
+	setRandKey(RNG(0, 7))
+	setRandAccidental(RNG(0, 1))
+	
+	getNewPiano()
+	getNewKey()
+	var CurrentNote = getNewNote()
+	
 func RNG(intMin, intMax):
 	var random_number = randi() % (intMax - intMin + 1) + intMin
 	return random_number
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
 
-func _ready():
-	var piano = load("res://piano.gd").new
-	var randClef = RNG(1, 2)
+func getNewPiano():
+	if clef.texture == bass:
+		get_tree().call_group("Piano", "set_start_key", 36)
+		get_tree().call_group("Piano", "set_end_key", 60)
+	elif clef.texture == treble:
+		get_tree().call_group("Piano", "set_start_key", 60)
+		get_tree().call_group("Piano", "set_end_key", 84)
 
-#Load Clef
-
-	if (randClef == 1):
-		clef.texture = bass
-		piano.set_start_key(36)
-		piano.set_end_key(64)
-	elif (randClef == 2):
-		clef.texture = treble
-		piano.set_start_key(60)
-		piano.set_end_key(88)
-
-# Load Key signature
-
-	var randKey = RNG(0, 7)
-
-	if randKey != 0:
-		var randAccidental = RNG(0, 2)
-
+func getNewKey():
+	var container: Node2D
+	var orderOfAccidentals: Array
+	
+	var clefTexture = clef.texture 
+	
+	if clefTexture == bass:
 		if randAccidental == 0:
-			var Accidental = "flat"
-			var orderOfFlats = ["Bb", "Eb", "Ab", "Db", "Gb", "Cb", "Fb"]
-			for i in range(randKey - 1):
-				displaySprite(Accidental, orderOfFlats[i])
+			container = flatContainerBass
+			orderOfAccidentals = ["Bb", "Eb", "Ab", "Db", "Gb", "Cb", "Fb"]
 		elif randAccidental == 1:
-			var Accidental = "sharp"
-			var orderOfSharps = ["F#", "C#", "G#", "D#", "A#", "E#", "B#"]
-			for i in range(randKey - 1):
-				displaySprite(Accidental, orderOfSharps[i])
+			container = sharpContainerBass
+			orderOfAccidentals = ["F#", "C#", "G#", "D#", "A#", "E#", "B#"]
+		else:
+			print("Invalid accidental type:", randAccidental)
+			return
+	else:
+		if clefTexture == treble:
+			if randAccidental == 0:
+				container = flatContainerTreble
+				orderOfAccidentals = ["Bb", "Eb", "Ab", "Db", "Gb", "Cb", "Fb"]
+			elif randAccidental == 1:
+				container = sharpContainerTreble
+				orderOfAccidentals = ["F#", "C#", "G#", "D#", "A#", "E#", "B#"]
+			else:
+				print("Invalid accidental type:", randAccidental)
+				return
+		
+	for i in range(randKey - 1):
+		var note = orderOfAccidentals[i]
+		var sprite: Sprite2D = getNoteSprite(container, note)
 
-func displaySprite(accidental, note):
-	if accidental == "flat":
-		var container = flatContainer
-		var sprite = container.get_node(note)
 		if sprite:
 			sprite.visible = true
-	elif accidental == "sharp":
-		var container = sharpContainer
-		var sprite = container.get_node(note)
-		if sprite:
-			sprite.visible = true
+		else:
+			print("Display Sprite: Note position not found for:", note)
 
-# load note
-const Notes  = ['A', 'Ab', 'A#', 'B', 'Bb', 'B#', 'C', 'Cb', 'C#', 'D', 'Db', 'D#', 'E', 'Eb', 'E#', 'F', 'Fb', 'F#', 'G', 'Gb', 'G#']
-const notePositions = [130, 240, 350, 460, 570, 680, 790, 900, 1010, 1120, 1230]
+# Helper function to get the note sprite from the container
+func getNoteSprite(container: Node2D, note: String) -> Sprite2D:
+	for child in container.get_children():
+		if child is Sprite2D and child.name == note:
+			return child
 
-const noteToPositionDict = {
-	'A': 130,
-	'Ab': 240,
-	'A#': 350,
-	'B': 460,
-	'Bb': 570,
-	'B#': 680,
-	'C': 790,
-	'Cb': 900,
-	'C#': 1010,
-	'D': 1120,
-	'Db': 1230,
-	'D#': 1340,
-	'E': 1450,
-	'Eb': 1560,
-	'E#': 1670,
-	'F': 1780, 
-	'Fb': 1890,
-	'F#': 2000,
-	'G': 2110,
-	'Gb': 2220,
-	'G#': 2330
-}
+	return null
+	
+func getNewNote():
+	
+	var clefTexture = clef.texture
+	var randNote = RNG(0, 11)
+	var adjustedNote: String = ""
+	var accidental: String = ""
+	var noteName: String = ""
+	var noteNameLower: String = ""
+	var orderOfAccidentals: Array[String] = []
+	var accidentalArray: Array[String] = []
 
-var randNote = RNG(0, 16)
-# make a variable called note name sets the value CDEFGAB CDEFGAB
-# if keysignature contains the note change note to the corresponidng flat or sharp
+	# Check the accidental type
+	if randAccidental == 0:
+		accidental = "flat"
+	elif randAccidental == 1:
+		accidental = "sharp"
+	else:
+		print("Invalid accidental type:", randAccidental)
+		return
+
+	# Define orderOfAccidentals and accidental based on randAccidental
+	if randAccidental == 0:
+		orderOfAccidentals = ["Bb", "Eb", "Ab", "Db", "Gb", "Cb", "Fb"]
+		accidental = "b"
+	elif randAccidental == 1:
+		orderOfAccidentals = ["F#", "C#", "G#", "D#", "A#", "E#", "B#"]
+		accidental = "#"
+
+	# Fill accidentalArray with base notes (without accidentals)
+	for i in range(randKey - 1):
+		if i < len(orderOfAccidentals):
+			var baseNote = orderOfAccidentals[i][0]  # Extract the base note without accidental
+			accidentalArray.append(baseNote.to_lower())  # Convert to lowercase
+
+	# Assign note names based on randAccidental
+	if randAccidental == 1:
+		noteName = bassNotes[randNote]
+		noteNameLower = noteName.to_lower()
+	elif randAccidental == 0:
+		noteName = trebleNotes[randNote]
+		noteNameLower = noteName.to_lower()
+
+	# Check if the adjustedNote needs an accidental and set it
+	adjustedNote = noteName  # Initialize adjustedNote with the note name
+	if noteNameLower in accidentalArray:
+		adjustedNote += accidental
+
+	# Set the position of the Note Sprite along the Y-axis
+	if randAccidental == 1:
+		if bassNoteToPositionDict.has(adjustedNote):
+			noteSprite.position.y = bassNoteToPositionDict[adjustedNote]
+	elif randAccidental == 0:
+		if trebleNoteToPositionDict.has(adjustedNote):
+			noteSprite.position.y = trebleNoteToPositionDict[adjustedNote]
+
+	# Choose a random texture outside the if conditions
+	var randomTexture: Texture2D
+	var randTextureIndex = RNG(0, 3)
+	match randTextureIndex:
+		0:
+			randomTexture = sixteenth
+		1:
+			randomTexture = eighth
+		2:
+			randomTexture = quarter
+		3:
+			randomTexture = half
+
+	# Set the texture of the note sprite
+	noteSprite.texture = randomTexture
+
+	# Print adjustedNote and Y position of the noteSprite
+	print(adjustedNote)
+	print(noteSprite.position.y)
+
+func ifNoteCorrect(currentNote, pressedNote):
+	if currentNote == pressedNote:
+		get_tree().call_group("Main", "addScore", 10)
+	getNewNote() 
+
+	

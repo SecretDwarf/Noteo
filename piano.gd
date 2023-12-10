@@ -6,11 +6,15 @@ extends Control
 # A 76-key piano goes from 23 to 98, 61-key from 36 to 96,
 # 49-key from 36 to 84, 37-key from 41 to 77, and 25-key
 # from 48 to 72. Middle C is pitch number 60, A440 is 69.
+var START_KEY = 36
+var END_KEY = 60
 
 var piano_key_dict := Dictionary()
 
-onready var white_keys = $WhiteKeys
-onready var black_keys = $BlackKeys
+const WhiteKeyScene = preload("res://piano_keys/white_piano_key.tscn")
+const BlackKeyScene = preload("res://piano_keys/black_piano_key.tscn")
+@onready var white_keys = %WhiteKeys
+@onready var black_keys = %BlackKeys
 
 # Getter for START_KEY
 func get_start_key() -> int:
@@ -19,6 +23,9 @@ func get_start_key() -> int:
 # Setter for START_KEY
 func set_start_key(value: int) -> void:
 	START_KEY = value
+	if _is_note_index_sharp(_pitch_index_to_note_index(START_KEY)):
+		printerr("The start key can't be a sharp note (limitation of this piano-generating algorithm). Try 21.")
+		return
 	update_piano_keys()
 
 # Getter for END_KEY
@@ -55,8 +62,14 @@ func _input(input_event):
 	if midi_event.pitch < START_KEY or midi_event.pitch > END_KEY:
 		# The given pitch isn't on the on-screen keyboard, so return.
 		return
-	_print_midi_info(midi_event)
 	var key: PianoKey = piano_key_dict[midi_event.pitch]
+	
+#	if whiteKeyPressed:
+#		note = WhiteKeyScene.get_white_key_note_name_from_pitch(pitch_index)	
+#	elif BlackKeyPressed
+#		note = BlackKeyScene.get_white_key_note_name_from_pitch(pitch_index)	
+#	get_tree().call_group("Staff", "ifNoteCorrect", note)
+	
 	if midi_event.message == MIDI_MESSAGE_NOTE_ON:
 		key.activate()
 	else:

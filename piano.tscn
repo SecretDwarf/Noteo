@@ -6,14 +6,14 @@
 [sub_resource type="Theme" id="Theme_hv50p"]
 default_font = ExtResource("1_2unbl")
 
-[node name="Piano" type="ColorRect"]
+[node name="Piano" type="ColorRect" groups=["Piano"]]
 custom_minimum_size = Vector2(200, 20)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 185.0
+offset_left = 4.0
 offset_top = 362.0
-offset_right = -167.0
+offset_right = 4.0
 offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -22,6 +22,7 @@ color = Color(0, 0, 0, 1)
 script = ExtResource("1")
 
 [node name="WhiteKeys" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -36,6 +37,7 @@ mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="BlackKeys" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 1
 anchors_preset = -1

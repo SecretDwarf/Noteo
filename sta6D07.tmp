@@ -2,18 +2,18 @@
 
 [ext_resource type="Texture2D" uid="uid://dhk1dm7heg0qa" path="res://assets/notes/staff.png" id="1_5mf7w"]
 [ext_resource type="Script" path="res://staff_view.gd" id="1_q3pvr"]
-[ext_resource type="Texture2D" uid="uid://d3wdx203505lg" path="res://assets/BassClef.png" id="2_2x0hk"]
+[ext_resource type="Texture2D" uid="uid://dreo83urgumpb" path="res://assets/BassClef.png" id="2_2x0hk"]
 [ext_resource type="Texture2D" uid="uid://b21tfwvwhy6wo" path="res://assets/TrebleClef.png" id="3_ja1e6"]
-[ext_resource type="Texture2D" uid="uid://b0xhekqickkqi" path="res://assets/notes/quarter.png" id="4_7fyli"]
+[ext_resource type="Texture2D" uid="uid://b83a7mfl1eilj" path="res://assets/notes/quarter.png" id="4_7fyli"]
 [ext_resource type="Texture2D" uid="uid://5qglcqfwo18x" path="res://assets/flat.png" id="4_kb3ug"]
 [ext_resource type="Texture2D" uid="uid://dd68bhansvcct" path="res://assets/sharp.png" id="5_ibw8e"]
-[ext_resource type="Texture2D" uid="uid://bnm1nmfccl6cf" path="res://assets/notes/sixteenth.png" id="5_ujtif"]
-[ext_resource type="Texture2D" uid="uid://pdfc1ermcbkv" path="res://assets/notes/eighth.png" id="6_nhkwc"]
-[ext_resource type="Texture2D" uid="uid://bl24spbwscap3" path="res://assets/notes/half.png" id="8_dcmdl"]
+[ext_resource type="Texture2D" uid="uid://bj4edifywoo31" path="res://assets/notes/sixteenth.png" id="5_ujtif"]
+[ext_resource type="Texture2D" uid="uid://be7xm2expb0pu" path="res://assets/notes/eighth.png" id="6_nhkwc"]
+[ext_resource type="Texture2D" uid="uid://r18keq0t5e28" path="res://assets/notes/half.png" id="8_dcmdl"]
 
-[node name="staff" type="Sprite2D" node_paths=PackedStringArray("clef", "flatContainerBass", "sharpContainerBass", "flatContainerTreble", "sharpContainerTreble", "noteSprite") groups=["Staff"]]
-position = Vector2(580, 200)
-scale = Vector2(2.49472, 0.300684)
+[node name="staff" type="Sprite2D" node_paths=PackedStringArray("clef", "flatContainerBass", "sharpContainerBass", "flatContainerTreble", "sharpContainerTreble", "noteSprite")]
+position = Vector2(581.5, 257)
+scale = Vector2(3.39296, 0.490714)
 texture = ExtResource("1_5mf7w")
 script = ExtResource("1_q3pvr")
 clef = NodePath("clef")
@@ -215,6 +215,6 @@ scale = Vector2(0.008, 0.045)
 texture = ExtResource("4_kb3ug")
 
 [node name="note" type="Sprite2D" parent="."]
-position = Vector2(40, 260)
+position = Vector2(40.23, 140.612)
 scale = Vector2(0.0310998, 0.174596)
 texture = ExtResource("4_7fyli")

@@ -25,6 +25,7 @@ one_shot = true
 
 [node name="noteLabel" type="Label" parent="."]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = 18.0
 offset_top = 214.0
 offset_right = 33.0
