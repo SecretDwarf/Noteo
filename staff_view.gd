@@ -19,6 +19,13 @@ extends Node2D
 var randAccidental: int
 var randKey: int
 
+@onready var round_countdown = $round_countdown
+@onready var startButton = $Start 
+@onready var score = $ScoreLabel
+@onready var CurrentNoteLabel = $CurrentNote
+@onready var label = $round_countdown/Label
+@onready var scoreLabel = $ScoreLabel
+
 # define note values
 # the lower octave is stored as lowercase
 # the upper octave is stored as uppercase
@@ -37,9 +44,6 @@ const bassNoteToPositionDict = {
 
 # setters
 
-func setClefTexture(newClef: Texture2D):
-	clef.texture = newClef
-
 func setRandKey(newRandKey: int):
 	randKey = newRandKey
 
@@ -47,27 +51,40 @@ func setRandAccidental(newRandAccidental: int):
 	randAccidental = newRandAccidental
 
 func _ready():
+	getNewClef()
 	setRandKey(RNG(0, 7))
 	setRandAccidental(RNG(0, 1))
-	
-	getNewPiano()
 	getNewKey()
-	var CurrentNote = getNewNote()
+	getNewNote()
+	startButton.pressed.connect(self._startButton_pressed)
+	round_countdown.set_one_shot (true)
+	
 	
 func RNG(intMin, intMax):
 	var random_number = randi() % (intMax - intMin + 1) + intMin
 	return random_number
 
 func _process(_delta):
-	pass
+	if round_countdown.is_stopped() == false:
+		var timeLeftCopy = round(round_countdown.time_left)
+		label.text = str(timeLeftCopy)
+		if label.text == "0":
+			get_tree().change_scene_to_file("res://end.tscn")		
 
-func getNewPiano():
-	if clef.texture == bass:
-		get_tree().call_group("Piano", "set_start_key", 36)
-		get_tree().call_group("Piano", "set_end_key", 60)
-	elif clef.texture == treble:
-		get_tree().call_group("Piano", "set_start_key", 60)
-		get_tree().call_group("Piano", "set_end_key", 84)
+func _startButton_pressed():
+	start_round_countdown()
+	startButton.hide()
+	scoreLabel.visible = true
+
+func start_round_countdown():
+	round_countdown.start(31)  # Changed to 31 seconds
+
+func getNewClef():
+	var selectedClef = RNG(1,2)
+	if selectedClef == 0:
+		clef.texture = treble
+	else:
+		clef.texture = bass
 
 func getNewKey():
 	var container: Node2D
@@ -115,8 +132,7 @@ func getNoteSprite(container: Node2D, note: String) -> Sprite2D:
 	return null
 	
 func getNewNote():
-	
-	var clefTexture = clef.texture
+
 	var randNote = RNG(0, 11)
 	var adjustedNote: String = ""
 	var accidental: String = ""
@@ -184,14 +200,4 @@ func getNewNote():
 
 	# Set the texture of the note sprite
 	noteSprite.texture = randomTexture
-
-	# Print adjustedNote and Y position of the noteSprite
-	print(adjustedNote)
-	print(noteSprite.position.y)
-
-func ifNoteCorrect(currentNote, pressedNote):
-	if currentNote == pressedNote:
-		get_tree().call_group("Main", "addScore", 10)
-	getNewNote() 
-
-	
+	CurrentNoteLabel.text = adjustedNote;

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct0eua7g0ugws"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_abjo4"]
+[ext_resource type="PackedScene" uid="uid://bsq3volt0et4w" path="res://staff_view.tscn" id="1_pdu02"]
+[ext_resource type="PackedScene" uid="uid://cxq8wcbsj1n7y" path="res://piano.tscn" id="2_07vih"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_abjo4")
+
+[node name="Staff" parent="." instance=ExtResource("1_pdu02")]
+position = Vector2(580, 207)
+
+[node name="Piano" parent="." instance=ExtResource("2_07vih")]
+offset_left = 2.0
+offset_top = 380.0
+offset_right = 1157.0
+offset_bottom = 648.0

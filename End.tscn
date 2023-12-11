@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://btl5vqtobktqd"]
+
+[ext_resource type="Script" path="res://MainMenu.gd" id="1_g0xwr"]
+[ext_resource type="Texture2D" uid="uid://c3ddxbn4n037x" path="res://assets/main_menu/NoteoLogo-removebg.png" id="2_8clfk"]
+[ext_resource type="FontFile" uid="uid://1fbn6epncem6" path="res://assets/Agbalumo-Regular.ttf" id="3_hsdjv"]
+
+[node name="MainMenu" type="Node2D"]
+position = Vector2(200, 50)
+script = ExtResource("1_g0xwr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 722.0
+offset_bottom = 500.0
+mouse_filter = 0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Logo" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_8clfk")
+stretch_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_hsdjv")
+theme_override_font_sizes/font_size = 45
+text = "Your score was: 0"
+horizontal_alignment = 1
+
+[node name="NewGame" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "New Game"
+
+[node name="Leaderboard" type="Button" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Leaderboard - Coming Soon!"
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Beta Release - SecretDwarf 12/23"
+horizontal_alignment = 1

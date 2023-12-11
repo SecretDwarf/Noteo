@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Noteo"
-run/main_scene="res://main.tscn"
+run/main_scene="res://MainMenu.tscn"
 config/features=PackedStringArray("4.1")
 config/icon="res://icon.png"
 
@@ -29,5 +29,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+environment/defaults/default_clear_color=Color(0.0745098, 0.47451, 0.701961, 1)
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
